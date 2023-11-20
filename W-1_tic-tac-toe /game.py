@@ -1,7 +1,7 @@
 import random
-
+# create matrix 3x3 as battle field
 x = [[1, 2, 3],[4, 5, 6], [7, 8, 9]]
-
+# combination whiches can bring Victory
 win_positions = [
                 (1,2,3,),
                 (4,5,6,),
@@ -13,13 +13,14 @@ win_positions = [
                 (3,6,9,),
                  ]
 
+# some additional vars
 all_steps = [1,2,3,4,5,6,7,8,9]
 computer_steps_history = []
 person_steps_hystory = []
 cross_or_zero = ['0', 'X']
 status = False
 
-person_sign = random.choice(cross_or_zero)
+person_sign = random.choice(cross_or_zero) # choise for signs
 cross_or_zero.remove(person_sign)
 computer_sign = cross_or_zero[0]
 
@@ -29,6 +30,7 @@ def computer_step():
     all_steps.remove(step)
     return step
 
+# func for human steps, choose a step, save it to history, delete from all steps list 
 def person_step():
     step = int(input("Ваш ход! "))
     if step in all_steps:
@@ -38,23 +40,24 @@ def person_step():
     else:
         step = int(input("Выберете другой ход! "))
 
-
+# check if there is winning combination
 def check_status(lst):
     for steps in win_positions:
         if set(steps).issubset(lst):
             return True
-
+# just for printing matrix
 def print_matrix():        
     for i in x:
         print(*i)
     print('#'* 90)
 
+# this func for changing diigit to player's
 def change_sign(sign, step):
     for i in range(len(x)):
         if step in x[i]:
             x[i][x[i].index(step)] = sign
             break
-
+# main func for game
 def game_processing():
     print_matrix()
     global status   
